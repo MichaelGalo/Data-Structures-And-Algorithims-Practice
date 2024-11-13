@@ -1,30 +1,34 @@
-let string1 = "boolean"
-let string2 = "string"
-
-let string3 = "cheater"
-let string4 = "teacher"
-
 var isAnagram = function(string1, string2) {
-    // we need first to check to see if the string lengths are equal, otherwise return false 
+    // First check if strings are same length
     if (string1.length !== string2.length) {
-        return false
+        return false;
     }
-
-    // we'll next need to create a hashMap
-    hashMap = {}
-
-    // loop through string grabbing each character & making a count in the hash map. The character will be the key and the count will be the value
-    for (let i = 0; i < string1.length; i++) {
-        // if char[i] exists in the hashMap, we want to increase count by 1
-        // otherwise we want to add the char[i] as the key and the value 1 
+    
+    // Create empty object to store character counts
+    let charCount = {};
+    
+    // Count characters in first string
+    for (let char of string1) {
+        if (charCount[char]) {
+            charCount[char] += 1 
+        } else {
+            charCount[char] = 1
+        }
     }
-
-    // loop again through the second string, doing the same thing
-
-    // if the counts & characters are equal, then they are anagrams (might need to use a sort method)
-
-    // return false as default until meeting true conditions
-    console.log("Hello World")
+    
+    // Check characters in second string
+    for (let char of string2) {
+        // If character doesn't exist in charCount or its count is 0
+        if (charCount[char] === undefined || charCount[char] === 0) {
+            return false;
+        }
+        charCount[char] -= 1;
+    }
+    
+    return true;
 };
 
-isAnagram(string1, string2)
+// Test cases
+console.log("Testing 'hello' and 'olleh':", isAnagram("hello", "olleh")); // true
+console.log("Testing 'hello' and 'world':", isAnagram("hello", "world")); // false
+console.log("Testing 'hello' and 'helloo':", isAnagram("hello", "helloo")); // false
